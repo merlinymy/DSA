@@ -105,6 +105,7 @@ class HashMap {
     if (idx !== null || idx !== undefined) {
       const data = list.removeAt(idx);
       log(`remove {${key}, ${data.value}}`);
+      this.size--;
       return true;
     }
     log(`key: '${key}' doesn't exist, nothing to remove`);
