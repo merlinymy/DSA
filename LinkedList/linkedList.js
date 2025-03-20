@@ -67,6 +67,13 @@ class LinkedList {
 
     let curNode = this.head;
     while (curNode !== null) {
+      if (curNode.data.key) {
+        if (curNode.data.key === value) {
+          return true;
+        } else {
+          curNode = curNode.next;
+        }
+      }
       if (curNode.data === value) {
         return true;
       } else {
@@ -80,11 +87,20 @@ class LinkedList {
     let idx = 0;
     let curNode = this.head;
     while (curNode !== null) {
-      if (curNode.data === value) {
-        return idx;
+      if (curNode.data.key) {
+        if (curNode.data.key === value) {
+          return idx;
+        } else {
+          curNode = curNode.next;
+          idx++;
+        }
       } else {
-        curNode = curNode.next;
-        idx++;
+        if (curNode.data === value) {
+          return idx;
+        } else {
+          curNode = curNode.next;
+          idx++;
+        }
       }
     }
     return null;
@@ -161,15 +177,3 @@ class Node {
     this.next = next;
   }
 }
-// testing
-
-const newList = new LinkedList();
-
-newList.append("odin");
-newList.prepend("thor");
-newList.append("loki");
-newList.append("freya");
-newList.append("brok");
-newList.removeAt(0);
-newList.insertAt("thor", 1);
-newList.toString();
