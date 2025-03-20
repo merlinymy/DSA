@@ -1,4 +1,4 @@
-function drawCanvas(canvas, hashMap) {
+function drawCanvas(hashMap) {
   const bucketsDiv = document.querySelector(".buckets");
   bucketsDiv.innerHTML = "";
   capacity = hashMap.capacity;
@@ -10,10 +10,10 @@ function drawCanvas(canvas, hashMap) {
       line.classList.add("line");
       bucketWrap.append(line);
       const dataCircle = document.createElement("div");
-      dataCircle.classList.add("data", "circle");
-      dataCircle.textContent = `{${linkedList.at(j).data.key} : ${
-        linkedList.at(j).data.value
-      }}`;
+      const key = linkedList.at(j).data.key;
+      const val = linkedList.at(j).data.value;
+      dataCircle.classList.add("data", "circle", `key-${key}`);
+      dataCircle.textContent = `{${key} : ${val}}`;
       bucketWrap.append(dataCircle);
     }
   }
@@ -31,4 +31,15 @@ function drawSquare(i) {
 
   bucketWrap.append(bucket);
   return bucketWrap;
+}
+
+function highlight(key) {
+  const allData = document.querySelectorAll(".data");
+  const selected = document.querySelector(`.key-${key}`);
+  allData.forEach((div) => {
+    div.classList.remove("highlight");
+  });
+  if (selected) {
+    selected.classList.add("highlight");
+  }
 }

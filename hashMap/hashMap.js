@@ -13,12 +13,13 @@ class HashMap {
     }
 
     const hashValue = hashCode % this.capacity;
-    log(`hash value for key ${key} created: ${hashValue}`);
     return hashValue;
   }
 
   set(key, value) {
     let hashValue = this.hash(key);
+    log(`hash value for key ${key} created: ${hashValue}`);
+
     let bucket = this.buckets[hashValue];
     let itemIdx = bucket.find(key);
     if (itemIdx !== null) {
@@ -67,6 +68,82 @@ class HashMap {
       }
     }
     log(`print out hashmap entries: ${res}`);
+    return res;
+  }
+
+  get(key) {
+    const list = this.buckets[this.hash(key)];
+    const idx = list.find(key);
+    console.log(idx);
+    if (idx !== null) {
+      const val = list.at(idx).data.value;
+      log(`find value ${val} with key ${key}`);
+      return val;
+    }
+    log(`couldn't find any value with key '${key}'`);
+
+    return null;
+  }
+
+  has(key) {
+    const list = this.buckets[this.hash(key)];
+    const idx = list.find(key);
+    console.log(idx);
+    if (idx !== null || idx !== undefined) {
+      const val = list.at(idx).data.value;
+      log(`value exist with key ${key}`);
+      return true;
+    }
+    log(`couldn't find any value with key '${key}'`);
+
+    return false;
+  }
+
+  remove(key) {
+    const list = this.buckets[this.hash(key)];
+    const idx = list.find(key);
+    if (idx !== null || idx !== undefined) {
+      const data = list.removeAt(idx);
+      log(`remove {${key}, ${data.value}}`);
+      return true;
+    }
+    log(`key: '${key}' doesn't exist, nothing to remove`);
+    return false;
+  }
+
+  length() {
+    return this.size;
+  }
+
+  clear() {
+    this.loadFactor = 0.75;
+    this.capacity = 4;
+    this.size = 0; // to detect if resize is needed
+    this.buckets = [...new Array(this.capacity)].map(() => new LinkedList());
+  }
+
+  keys() {
+    const res = [];
+    for (let bucket of this.buckets) {
+      for (let i = 0; i < bucket.size; i++) {
+        let curNode = bucket.head;
+        res.push([curNode.data.key]);
+        curNode = curNode.next;
+      }
+    }
+    log(`print out hashmap keys: ${res}`);
+    return res;
+  }
+  values() {
+    const res = [];
+    for (let bucket of this.buckets) {
+      for (let i = 0; i < bucket.size; i++) {
+        let curNode = bucket.head;
+        res.push([curNode.data.value]);
+        curNode = curNode.next;
+      }
+    }
+    log(`print out hashmap values: ${res}`);
     return res;
   }
 }
