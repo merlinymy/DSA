@@ -1,4 +1,4 @@
-let tree = new Tree([]);
+let tree = new Tree([42, 12, 34, 2, 3, 56, 47]);
 const arrayInput = document.querySelector("#array-input");
 const drawingArea = document.querySelector(".graph");
 const treeStruct = document.createElement("div");
@@ -56,3 +56,5 @@ function drawPretty(node, prefix = "", isLeft = true) {
     drawPretty(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 }
+
+drawTree(tree);

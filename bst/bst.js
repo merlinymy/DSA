@@ -14,6 +14,20 @@ class Tree {
     return root;
   }
 
+  find(val, node = this.root) {
+    if (node === null) {
+      return false;
+    }
+    if (val === node.data) {
+      return true;
+    }
+    if (val < node.data) {
+      return this.find(val, node.left);
+    } else {
+      return this.find(val, node.right);
+    }
+  }
+
   insert(val) {
     if (this.root === null) {
       this.root = new Node(val);
