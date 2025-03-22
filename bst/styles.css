@@ -6,10 +6,10 @@
 
 
 
-.inputs,.graph {
+.inputs,.graph,.info {
     border-radius: 10px;
     border: 1px solid black;
-    min-height: 300px;
+    min-height: 200px;
     margin: 1rem;
     padding: 0.25rem;
 }
@@ -21,4 +21,9 @@
 
 .graph div {
     white-space: pre;
+}
+
+.level-order, .in-order, .pre-order, .post-order {
+    display: flex;
+    gap: 0.5rem;
 }
